@@ -1,0 +1,79 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Django migrations (but keep the migration files themselves) #
+*/migrations/__pycache__/
+*.pyc
+
+# Virtual Environment #
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.env/
+
+# IDE / Editor #
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Python #
+*.py[cod]
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage #
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook #
+.ipynb_checkpoints
+
+# pyenv #
+.python-version
+
+# Secrets #
+.env
+.secrets
+secret.py
+
+# Project specific #
+uploads/
