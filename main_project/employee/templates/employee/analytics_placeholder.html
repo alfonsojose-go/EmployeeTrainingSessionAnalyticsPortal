@@ -1,0 +1,9 @@
+{% extends "employee/base.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<!-- Temporary placeholder shown for analytics pages under construction. -->
+<div class="alert alert-info">
+  <strong>{{ page_title }}</strong> — coming soon.
+</div>
+<p><a href="{% url 'analytics_hub' %}">← Analytics dashboard</a></p>
+{% endblock %}

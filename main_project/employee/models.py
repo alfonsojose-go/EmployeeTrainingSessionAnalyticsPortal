@@ -47,17 +47,17 @@ class Session(models.Model):
 
 class Enrollment(models.Model):
     STATUS_CHOICES = [
-        ('Enrolled', 'Enrolled'),
-        ('Completed', 'Completed'),
-        ('Cancelled', 'Cancelled'),
+        ('ENROLLED', 'ENROLLED'),
+        ('COMPLETED', 'COMPLETED'),
+        ('CANCELLED', 'CANCELLED'),
     ]
 
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='enrollments')
     session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='enrollments')
-    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Enrolled')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='ENROLLED')
 
     class Meta:
-            # Constraint: An employee may not be enrolled more than once in the same session
+        # An employee may not be enrolled more than once in the same session
         unique_together = ['employee', 'session']
 
     def __str__(self):
