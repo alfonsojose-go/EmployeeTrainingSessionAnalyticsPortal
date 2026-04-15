@@ -1,0 +1,24 @@
+{% extends "employee/base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block content %}
+<h1 class="h3 mb-4">Analytics Dashboard</h1>
+<!-- Navigation list for available analytics reports. -->
+<div class="list-group shadow-sm">
+  <a class="list-group-item list-group-item-action" href="{% url 'course_popularity' %}">
+    <strong>Course Popularity</strong>
+    <div class="small text-muted">Total enrollments per course and success rate.</div>
+  </a>
+  <a class="list-group-item list-group-item-action" href="{% url 'department_participation' %}">
+    <strong>Department Participation</strong>
+    <div class="small text-muted">Completed trainings grouped by department.</div>
+  </a>
+  <a class="list-group-item list-group-item-action" href="{% url 'employee_transcript' %}">
+    <strong>Employee Training Transcript</strong>
+    <div class="small text-muted">Training history for one employee.</div>
+  </a>
+  <a class="list-group-item list-group-item-action" href="{% url 'analytics_extra' %}">
+    <strong>Additional analytics</strong>
+    <div class="small text-muted">Extended report (group of 3).</div>
+  </a>
+</div>
+{% endblock %}
