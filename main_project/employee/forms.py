@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Enrollment
+from .models import Enrollment, Employee, Course, Session
 
 
 class EnrollmentForm(forms.ModelForm):
@@ -30,3 +30,20 @@ class EnrollmentForm(forms.ModelForm):
                     "This employee is already enrolled in this session."
                 )
         return cleaned
+
+
+class EmployeeForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+
+class CourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+class SessionForm(forms.ModelForm):
+    class Meta:
+        model = Session
+        fields = '__all__'

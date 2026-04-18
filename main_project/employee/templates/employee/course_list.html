@@ -1,7 +1,12 @@
 {% extends "employee/base.html" %}
 {% block title %}Courses{% endblock %}
 {% block content %}
-<h1 class="h3 mb-3">Courses</h1>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">Courses</h1>
+  <a class="btn btn-primary" href="{% url 'course_create' %}">
+    + Add Course
+  </a>
+</div>
 <!-- Category filter uses GET so results can be bookmarked/shared. -->
 <form method="get" class="row g-2 align-items-end mb-4">
   <div class="col-auto">
@@ -21,7 +26,11 @@
   <!-- Course listing table; action column is reserved for future operations. -->
   <table class="table table-striped table-bordered bg-white">
     <thead class="table-light">
-      <tr><th>Title</th><th>Category</th><th>Duration (minutes)</th><th>Actions</th></tr>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Duration (minutes)</th>
+        <th>Actions</th></tr>
     </thead>
     <tbody>
       {% for c in courses %}
@@ -29,7 +38,12 @@
         <td>{{ c.title }}</td>
         <td>{{ c.get_category_display }}</td>
         <td>{{ c.duration_minutes }}</td>
-        <td><span class="text-muted">—</span></td>
+        <td>
+          <a class="btn btn-sm btn-outline-primary" href="{% url 'course_update' c.id %}">Edit</a>
+          <a class="btn btn-sm btn-outline-danger" href="{% url 'course_delete' c.id %}"
+             onclick="return confirm('Are you sure you want to delete {{ c.title }}?');">Delete</a>
+
+        </td>
       </tr>
       {% empty %}
       <tr><td colspan="4">No courses yet.</td></tr>
