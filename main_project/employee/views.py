@@ -7,7 +7,13 @@ from .models import Course, Employee, Enrollment, Session
 
 def home(request):
     """Render the portal landing page."""
-    return render(request, "employee/home.html")
+    context = {
+        "total_employees": Employee.objects.count(),
+        "total_courses": Course.objects.count(),
+        "total_sessions": Session.objects.count(),
+        "total_enrollments": Enrollment.objects.count(),
+    }
+    return render(request, "employee/home.html", context)
 
 
 def employee_list(request):
@@ -120,7 +126,13 @@ def enrollment_update(request, pk):
 
 def analytics_hub(request):
     """Render the analytics dashboard links page."""
-    return render(request, "employee/analytics_hub.html")
+    context = {
+        "total_employees": Employee.objects.count(),
+        "total_courses": Course.objects.count(),
+        "total_sessions": Session.objects.count(),
+        "total_enrollments": Enrollment.objects.count(),
+    }
+    return render(request, "employee/analytics_hub.html", context)
 
 
 def department_participation(request):
@@ -162,9 +174,32 @@ def course_popularity_placeholder(request):
     return analytics_placeholder(request, "Course Popularity")
 
 
-def employee_transcript_placeholder(request):
-    """Placeholder endpoint for the employee transcript report."""
-    return analytics_placeholder(request, "Employee Training Transcript")
+def employee_transcript(request):
+    """
+    Show the training transcript for one selected employee.
+    Displays course title, session date, and enrollment status.
+    """
+    employees = Employee.objects.all().order_by("full_name")
+    selected_employee_id = request.GET.get("employee") or ""
+
+    selected_employee = None
+    transcript_rows = Enrollment.objects.none()
+
+    if selected_employee_id:
+        selected_employee = get_object_or_404(Employee, pk=selected_employee_id)
+        transcript_rows = (
+            Enrollment.objects.select_related("session__course", "employee")
+            .filter(employee=selected_employee)
+            .order_by("-session__session_date", "session__course__title")
+        )
+
+    context = {
+        "employees": employees,
+        "selected_employee_id": selected_employee_id,
+        "selected_employee": selected_employee,
+        "transcript_rows": transcript_rows,
+    }
+    return render(request, "employee/analytics_employee_transcript.html", context)
 
 
 def analytics_extra_placeholder(request):

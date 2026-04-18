@@ -22,9 +22,9 @@ urlpatterns = [
         name="course_popularity",
     ),
     path(
-        "analytics/employee-transcript/",
-        views.employee_transcript_placeholder,
-        name="employee_transcript",
+    "analytics/employee-transcript/",
+    views.employee_transcript,
+    name="employee_transcript",
     ),
     path(
         "analytics/extra/",

@@ -1,0 +1,81 @@
+{% extends "employee/base.html" %}
+
+{% block title %}Employee Training Transcript{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="mb-3">Employee Training Transcript</h2>
+    <p class="text-muted">
+      Select an employee to view all completed, enrolled, or cancelled training records.
+    </p>
+
+    <form method="get" class="row g-3 mb-4">
+      <div class="col-md-8">
+        <label for="employee" class="form-label">Search Employee</label>
+        <select name="employee" id="employee" class="form-select">
+          <option value="">-- Select an employee --</option>
+          {% for employee in employees %}
+            <option value="{{ employee.id }}"
+              {% if selected_employee_id == employee.id|stringformat:"s" %}selected{% endif %}>
+              {{ employee.full_name }} ({{ employee.email }})
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary me-2">View Transcript</button>
+        <a href="{% url 'employee_transcript' %}" class="btn btn-outline-secondary">Clear</a>
+      </div>
+    </form>
+
+    {% if selected_employee %}
+      <div class="mb-3">
+        <h5 class="mb-1">Employee: {{ selected_employee.full_name }}</h5>
+        <p class="mb-0"><strong>Email:</strong> {{ selected_employee.email }}</p>
+        <p class="mb-0"><strong>Department:</strong> {{ selected_employee.department }}</p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Date</th>
+              <th>Course</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in transcript_rows %}
+              <tr>
+                <td>{{ row.session.session_date }}</td>
+                <td>{{ row.session.course.title }}</td>
+                <td>{{ row.status }}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="3" class="text-center">
+                  No training records found for this employee.
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="alert alert-info mb-0">
+        Choose an employee from the dropdown to view their training transcript.
+      </div>
+    {% endif %}
+
+    <!-- ✅ Back Button (correct placement) -->
+    <div class="mt-4 d-flex justify-content-end">
+      <a href="{% url 'analytics_hub' %}" class="btn btn-secondary">
+        ← Back to Analytics
+      </a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
