@@ -1,24 +1,76 @@
 {% extends "employee/base.html" %}
 {% block title %}Analytics{% endblock %}
+
 {% block content %}
-<h1 class="h3 mb-4">Analytics Dashboard</h1>
-<!-- Navigation list for available analytics reports. -->
-<div class="list-group shadow-sm">
-  <a class="list-group-item list-group-item-action" href="{% url 'course_popularity' %}">
-    <strong>Course Popularity</strong>
-    <div class="small text-muted">Total enrollments per course and success rate.</div>
-  </a>
-  <a class="list-group-item list-group-item-action" href="{% url 'department_participation' %}">
-    <strong>Department Participation</strong>
-    <div class="small text-muted">Completed trainings grouped by department.</div>
-  </a>
-  <a class="list-group-item list-group-item-action" href="{% url 'employee_transcript' %}">
-    <strong>Employee Training Transcript</strong>
-    <div class="small text-muted">Training history for one employee.</div>
-  </a>
-  <a class="list-group-item list-group-item-action" href="{% url 'analytics_extra' %}">
-    <strong>Additional analytics</strong>
-    <div class="small text-muted">Extended report (group of 3).</div>
-  </a>
+<h1 class="h3 mb-3">Analytics Dashboard</h1>
+
+<div class="alert alert-info shadow-sm">
+  This dashboard provides quick access to employee training reports. Use the report links below to review course popularity, department participation, and individual employee training history.
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-3 mb-3">
+    <div class="card shadow-sm text-center h-100">
+      <div class="card-body">
+        <h6 class="text-muted">Total Employees</h6>
+        <h3>{{ total_employees }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <div class="card shadow-sm text-center h-100">
+      <div class="card-body">
+        <h6 class="text-muted">Total Courses</h6>
+        <h3>{{ total_courses }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <div class="card shadow-sm text-center h-100">
+      <div class="card-body">
+        <h6 class="text-muted">Total Sessions</h6>
+        <h3>{{ total_sessions }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <div class="card shadow-sm text-center h-100">
+      <div class="card-body">
+        <h6 class="text-muted">Total Enrollments</h6>
+        <h3>{{ total_enrollments }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="mb-3">Available Reports</h5>
+
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action" href="{% url 'course_popularity' %}">
+        <strong>Course Popularity</strong>
+        <div class="small text-muted">View total enrollments for each course and the completion success rate.</div>
+      </a>
+
+      <a class="list-group-item list-group-item-action" href="{% url 'department_participation' %}">
+        <strong>Department Participation</strong>
+        <div class="small text-muted">Compare completed training participation across departments.</div>
+      </a>
+
+      <a class="list-group-item list-group-item-action" href="{% url 'employee_transcript' %}">
+        <strong>Employee Training Transcript</strong>
+        <div class="small text-muted">View the training history of one selected employee.</div>
+      </a>
+
+      <a class="list-group-item list-group-item-action" href="{% url 'analytics_extra' %}">
+        <strong>Additional Analytics</strong>
+        <div class="small text-muted">Extended report for group of 3 requirements.</div>
+      </a>
+    </div>
+  </div>
 </div>
 {% endblock %}
