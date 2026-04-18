@@ -1,0 +1,58 @@
+{% extends "employee/base.html" %}
+
+{% block title %}Enrollment Count by Session{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h2 class="mb-3">Enrollment Count by Session</h2>
+        <p class="text-muted">
+            Shows enrollment statistics for each training session.
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>Course</th>
+                    <th>Session Date</th>
+                    <th>Instructor</th>
+                    <th>Mode</th>
+                    <th>Total Enrollments</th>
+                    <th>Completed</th>
+                    <th>Cancelled</th>
+                    <th>Enrolled</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for session in session_data %}
+                <tr>
+                    <td>{{ session.course_title }}</td>
+                    <td>{{ session.session_date }}</td>
+                    <td>{{ session.instructor }}</td>
+                    <td>{{ session.mode }}</td>
+                    <td>
+                        <strong>{{ session.total_enrollments }}</strong>
+                    </td>
+                    <td class="text-success">{{ session.completed }}</td>
+                    <td class="text-danger">{{ session.cancelled }}</td>
+                    <td class="text-warning">{{ session.enrolled }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No session data available.</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Back Button -->
+        <div class="mt-4 d-flex justify-content-end">
+            <a href="{% url 'analytics_hub' %}" class="btn btn-secondary">
+                ← Back to Analytics
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

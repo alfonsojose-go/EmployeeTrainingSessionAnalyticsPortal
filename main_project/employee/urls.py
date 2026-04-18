@@ -27,7 +27,7 @@ urlpatterns = [
     ),
     path(
         "analytics/course-popularity/",
-        views.course_popularity_placeholder,
+        views.course_popularity,
         name="course_popularity",
     ),
     path(
@@ -35,9 +35,8 @@ urlpatterns = [
     views.employee_transcript,
     name="employee_transcript",
     ),
-    path(
-        "analytics/extra/",
-        views.analytics_extra_placeholder,
-        name="analytics_extra",
-    ),
+    # Additional Analytics URLs (FIXED)
+    path("analytics/extra/", views.analytics_extra, name="analytics_extra"),
+    path("analytics/completion-summary/", views.completion_summary_by_course, name="completion_summary"),
+    path("analytics/enrollment-by-session/", views.enrollment_count_by_session, name="enrollment_by_session"),
 ]

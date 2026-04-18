@@ -1,9 +1,34 @@
 {% extends "employee/base.html" %}
-{% block title %}{{ page_title }}{% endblock %}
+{% block title %}Additional Analytics{% endblock %}
+
 {% block content %}
-<!-- Temporary placeholder shown for analytics pages under construction. -->
-<div class="alert alert-info">
-  <strong>{{ page_title }}</strong> — coming soon.
+<h1 class="h3 mb-3">Additional Analytics</h1>
+
+<div class="alert alert-info shadow-sm">
+  Extended analytics providing deeper insights into course completion rates and session enrollment metrics.
 </div>
-<p><a href="{% url 'analytics_hub' %}">← Analytics dashboard</a></p>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="mb-3">Extended Reports</h5>
+
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action" href="{% url 'completion_summary' %}">
+        <strong>Completion Summary by Course</strong>
+        <div class="small text-muted">Show completion summary for each course including completion rates.</div>
+      </a>
+
+      <a class="list-group-item list-group-item-action" href="{% url 'enrollment_by_session' %}">
+        <strong>Enrollment Count by Session</strong>
+        <div class="small text-muted">Show enrollment count and status breakdown for each session.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4 d-flex justify-content-end">
+  <a href="{% url 'analytics_hub' %}" class="btn btn-secondary">
+    ← Back to Analytics Dashboard
+  </a>
+</div>
 {% endblock %}
