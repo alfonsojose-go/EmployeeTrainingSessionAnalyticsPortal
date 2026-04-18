@@ -1,7 +1,7 @@
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import EnrollmentForm
+from .forms import EnrollmentForm, EmployeeForm, CourseForm, SessionForm
 from .models import Course, Employee, Enrollment, Session
 
 
@@ -29,6 +29,44 @@ def employee_list(request):
     }
     return render(request, "employee/employee_list.html", context)
 
+def employee_create(request):
+    """Create a new enrollment and redirect to the enrollment list."""
+    if request.method == "POST":
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("employee_list")
+
+    else:  # GET request (or other methods)
+        form = EmployeeForm()
+
+    return render(
+        request,
+        "employee/employee_form.html",
+        {"form": form, "title": "Add Employee"},
+    )
+
+def employee_update(request, id):
+    employee = Employee.objects.get(id=id)
+    form = EmployeeForm(instance=employee)
+
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('employee_list')
+
+    return render(request,
+                  'employee/employee_form.html',
+                  {'form': form, 'title': 'Edit Employee'}  # ← Merge into one dict
+                  )
+
+
+def employee_delete(request, id):
+    employee = Employee.objects.get(id=id)
+    employee.delete()
+
+    return  redirect('employee_list')
 
 def course_list(request):
     """List courses with an optional category filter."""
@@ -42,6 +80,45 @@ def course_list(request):
         "category_choices": Course.CATEGORY_CHOICES,
     }
     return render(request, "employee/course_list.html", context)
+
+def course_create(request):
+    """Create a new enrollment and redirect to the enrollment list."""
+    if request.method == "POST":
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("course_list")
+
+    else:  # GET request (or other methods)
+        form = CourseForm()
+
+    return render(
+        request,
+        "employee/course_form.html",
+        {"form": form, "title": "Add Course"},
+    )
+
+def course_update(request, id):
+    course = Course.objects.get(id=id)
+    form = CourseForm(instance=course)
+
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect('course_list')
+
+    return render(request,
+                  'employee/course_form.html',
+                  {'form': form, 'title': 'Edit Course'}  # ← Merge into one dict
+                  )
+
+
+def course_delete(request, id):
+    course = Course.objects.get(id=id)
+    course.delete()
+
+    return  redirect('course_list')
 
 
 def session_list(request):
@@ -65,6 +142,45 @@ def session_list(request):
         "instructor": instructor,
     }
     return render(request, "employee/session_list.html", context)
+
+def session_create(request):
+    """Create a new enrollment and redirect to the enrollment list."""
+    if request.method == "POST":
+        form = SessionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("session_list")
+
+    else:  # GET request (or other methods)
+        form = SessionForm()
+
+    return render(
+        request,
+        "employee/session_form.html",
+        {"form": form, "title": "Add Session"},
+    )
+
+def session_update(request, id):
+    session = Session.objects.get(id=id)
+    form = SessionForm(instance=session)
+
+    if request.method == 'POST':
+        form = SessionForm(request.POST, instance=session)
+        if form.is_valid():
+            form.save()
+            return redirect('session_list')
+
+    return render(request,
+                  'employee/session_form.html',
+                  {'form': form, 'title': 'Edit Session'}  # ← Merge into one dict
+                  )
+
+
+def session_delete(request, id):
+    session = Session.objects.get(id=id)
+    session.delete()
+
+    return  redirect('session_list')
 
 
 def enrollment_list(request):
